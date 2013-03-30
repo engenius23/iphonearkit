@@ -27,9 +27,9 @@
 	
 	UIImagePickerController *cameraController;
 	
-	NSObject<ARViewDelegate> *delegate;
-	NSObject<CLLocationManagerDelegate> *locationDelegate;
-	NSObject<UIAccelerometerDelegate> *accelerometerDelegate;
+	NSObject<ARViewDelegate> *__weak delegate;
+	NSObject<CLLocationManagerDelegate> *__weak locationDelegate;
+	NSObject<UIAccelerometerDelegate> *__weak accelerometerDelegate;
 	
 	BOOL scaleViewsBasedOnDistance;
 	double maximumScaleDistance;
@@ -56,7 +56,7 @@
 
 @property (readonly) NSArray *coordinates;
 
-@property BOOL debugMode;
+@property (nonatomic) BOOL debugMode;
 
 @property BOOL scaleViewsBasedOnDistance;
 @property double maximumScaleDistance;
@@ -65,7 +65,7 @@
 @property BOOL rotateViewsBasedOnPerspective;
 @property double maximumRotationAngle;
 
-@property double updateFrequency;
+@property (nonatomic) double updateFrequency;
 
 //adding coordinates to the underlying data model.
 - (void)addCoordinate:(ARCoordinate *)coordinate;
@@ -89,15 +89,15 @@
 
 - (BOOL)viewportContainsCoordinate:(ARCoordinate *)coordinate;
 
-@property (nonatomic, retain) UIImagePickerController *cameraController;
+@property (nonatomic, strong) UIImagePickerController *cameraController;
 
-@property (nonatomic, assign) NSObject<ARViewDelegate> *delegate;
-@property (nonatomic, assign) NSObject<CLLocationManagerDelegate> *locationDelegate;
-@property (nonatomic, assign) NSObject<UIAccelerometerDelegate> *accelerometerDelegate;
+@property (nonatomic, weak) NSObject<ARViewDelegate> *delegate;
+@property (nonatomic, weak) NSObject<CLLocationManagerDelegate> *locationDelegate;
+@property (nonatomic, weak) NSObject<UIAccelerometerDelegate> *accelerometerDelegate;
 
-@property (retain) ARCoordinate *centerCoordinate;
+@property (strong) ARCoordinate *centerCoordinate;
 
-@property (nonatomic, retain) UIAccelerometer *accelerometerManager;
-@property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, strong) UIAccelerometer *accelerometerManager;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end

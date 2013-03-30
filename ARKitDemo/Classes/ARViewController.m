@@ -85,14 +85,12 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	[ar_overlayView release];
 	ar_overlayView = [[UIView alloc] initWithFrame:CGRectZero];
 	
-	[ar_debugView release];
 	
 	if (self.debugMode) {
 		ar_debugView = [[UILabel alloc] initWithFrame:CGRectZero];
-		ar_debugView.textAlignment = UITextAlignmentCenter;
+		ar_debugView.textAlignment = NSTextAlignmentCenter;
 		ar_debugView.text = @"Waiting...";
 		
 		[ar_overlayView addSubview:ar_debugView];
@@ -108,13 +106,12 @@
 	if (!_updateTimer) return;
 	
 	[_updateTimer invalidate];
-	[_updateTimer release];
 	
-	_updateTimer = [[NSTimer scheduledTimerWithTimeInterval:self.updateFrequency
+	_updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateFrequency
 													 target:self
 												   selector:@selector(updateLocations:)
 												   userInfo:nil
-													repeats:YES] retain];
+													repeats:YES];
 }
 
 - (void)setDebugMode:(BOOL)flag {
@@ -170,7 +167,7 @@
 	//start our heading readings and our accelerometer readings.
 	
 	if (!self.locationManager) {
-		self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+		self.locationManager = [[CLLocationManager alloc] init];
 		
 		//we want every move.
 		self.locationManager.headingFilter = kCLHeadingFilterNone;
@@ -419,11 +416,11 @@ NSComparisonResult LocationSortClosestFirst(ARCoordinate *s1, ARCoordinate *s2, 
 #endif
 	
 	if (!_updateTimer) {
-		_updateTimer = [[NSTimer scheduledTimerWithTimeInterval:self.updateFrequency
+		_updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateFrequency
 													 target:self
 												   selector:@selector(updateLocations:)
 												   userInfo:nil
-													repeats:YES] retain];
+													repeats:YES];
 	}
 	
 	[super viewDidAppear:animated];
@@ -453,18 +450,9 @@ NSComparisonResult LocationSortClosestFirst(ARCoordinate *s1, ARCoordinate *s2, 
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-	[ar_overlayView release];
 	ar_overlayView = nil;
 }
 
 
-- (void)dealloc {
-	[ar_debugView release];
-	
-	[ar_coordinateViews release];
-	[ar_coordinates release];
-	
-    [super dealloc];
-}
 
 @end
